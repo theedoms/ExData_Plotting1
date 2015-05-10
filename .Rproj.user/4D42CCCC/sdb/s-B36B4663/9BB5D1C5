@@ -1,0 +1,17 @@
+{
+    "contents" : "# Plot 1\n##\n\nhousehold_power_consumption <- read.table(\"~/GitHub/ExData_Plotting1/household_power_consumption.txt\", sep=\";\", quote=\"\\\"\")\n\nhpc=tbl_df(household_power_consumption)\n\nhpcf=filter(hpc,V1==\"1/2/2007\" | V1==\"2/2/2007\")\n\nrm(hpc) # free memory\n\n# hpcf$datetime= as.POSIXct(coldate,format=\"%d/%m/%Y %H:%M:%S\") # add a datetime column\n\nglobalActivePower<- filter(select(hpcf,V3), V3!= \"?\")  # selects the V3 column and filters \"?\"\n\n\nglobalActivePower<-as.numeric(as.character(globalActivePower$V3)) # makes it a numeric vector\n\n# draws the histogram with title and axis labels and color\nhist(globalActivePower,col=\"red\",main=\"Global Active Power\", xlab=\"Global Active Power (kilowatts)\", ylab=\"Frequency\")\n\n# save plot to file\ndev.copy(png, file = \"plot1.png\")\ndev.off()",
+    "created" : 1431245699230.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4190736180",
+    "id" : "9BB5D1C5",
+    "lastKnownWriteTime" : 1431287094,
+    "path" : "~/GitHub/ExData_Plotting1/plot1.R",
+    "project_path" : "plot1.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

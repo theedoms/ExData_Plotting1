@@ -1,0 +1,17 @@
+{
+    "contents" : "# Plot 4\n##\n\nhousehold_power_consumption <- read.table(\"~/GitHub/ExData_Plotting1/household_power_consumption.txt\", sep=\";\", quote=\"\\\"\", na.strings=\"?\")\n\nhpc<-tbl_df(household_power_consumption)\n\nhpcf<-filter(hpc,V1==\"1/2/2007\" | V1==\"2/2/2007\", !is.na(V3), !is.na(V4), !is.na(V5))\n\n# frees memory\nrm(hpc) \nrm(household_power_consumption)\n\n# add a datetime column\nhpcf<-mutate(hpcf,datetime=as.POSIXct(paste(V1,V2),format=\"%d/%m/%Y %H:%M:%S\")) \n\n# convert V3,V4,V5, V7, V8, V9 column to numeric data type\nhpcf[c(3:5,7:9)]<- sapply(hpcf[c(3:5,7:9)],function(l) {as.numeric(as.character(l))})\n\n# Prepares layout for 4 graphics\npar(mfrow=c(2, 2))\n# draws the graphics with title and axis labels and color\n# Plot 1 - Global Active Power\nplot(hpcf$datetime,hpcf$V3, type=\"l\", main=\"\", xlab=\"\", ylab=\"Global Active Power\")\n\n# Plot 2 - Global voltage\nplot(hpcf$datetime,hpcf$V5, type=\"l\", main=\"\", xlab=\"datetime\", ylab=\"Voltage\")\n\n# Plot 3 - sub Metering\nplot(hpcf$datetime,hpcf$V7, type=\"l\", main=\"\", xlab=\"\", ylab=\"Energy sub metering\", col=\"black\")\n#adds lines for second and third series\nlines(hpcf$datetime,hpcf$V8, type=\"l\",col=\"red\")\nlines(hpcf$datetime,hpcf$V9, type=\"l\",col=\"blue\", sub=\"Sub_metering_3\")\n#adds legend\nlegend(\"topright\",c(\"Sub_metering_1\",\"Sub_metering_2\",\"Sub_metering_3\"), fill=c(\"black\",\"red\",\"blue\"),lty=1,lwd=1)\n\n# Plot 4 - Global Reactive Power\nplot(hpcf$datetime,hpcf$V4, type=\"l\", main=\"\", xlab=\"datetime\", ylab=\"Global Reactive Power (kilowatts)\")\n\n# save plot to file\ndev.copy(png, file = \"plot4.png\")\ndev.off()",
+    "created" : 1431292636881.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3326196786",
+    "id" : "50312396",
+    "lastKnownWriteTime" : 1431293561,
+    "path" : "~/GitHub/ExData_Plotting1/plot4.R",
+    "project_path" : "plot4.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
